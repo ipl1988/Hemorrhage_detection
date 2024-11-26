@@ -4,6 +4,8 @@ aiofiles
 
 ### basic packages from taxi fare
 wheel
+os
+pillow
 nbresult
 colorama
 ipdb
