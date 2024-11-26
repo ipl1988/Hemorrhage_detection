@@ -1,5 +1,5 @@
 .env
-download_dataset_100/
+raw_data/
 
 # OS generated files #
 ######################
