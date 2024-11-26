@@ -1,8 +1,7 @@
 ### specific packages Hem_detect
 pydicom
 
-
-### packages from taxi fare
+### basic packages from taxi fare
 wheel
 nbresult
 colorama
