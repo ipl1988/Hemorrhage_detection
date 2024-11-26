@@ -1,5 +1,6 @@
 ### specific packages Hem_detect
 pydicom
+aiofiles
 
 ### basic packages from taxi fare
 wheel
