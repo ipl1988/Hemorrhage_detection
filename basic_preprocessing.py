@@ -23,9 +23,8 @@ def normalizer(img):
 
 ## 4) Process the pictures ##
 
-# Define the input and output path!!!
+# Define the input path!!!
 # Input path = folder containing your DICOM files
-# output path = folder to save PNG to
 
 img_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train"
 
@@ -41,7 +40,7 @@ if not os.path.exists(output_path):
 # Loop through each file in the directory, test the first 100 only!
 
 img_array = []
-k = 10
+k = 100
 
 for filename in os.listdir(img_path)[:k]:
     # Check if the file is a DICOM file (assuming .dcm extension)
