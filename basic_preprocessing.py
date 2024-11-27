@@ -27,8 +27,12 @@ def normalizer(img):
 # Input path = folder containing your DICOM files
 # output path = folder to save PNG to
 
-folder_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train"
-output_path = os.path.join(folder_path, "images_stage_2_train_png")
+img_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train"
+
+def make_output_path(img_path):
+    return os.path.join(img_path, "images_stage_2_train_png")
+
+output_path = make_output_path(img_path)
 
 # Ensure the output directory exists
 if not os.path.exists(output_path):
@@ -39,10 +43,10 @@ if not os.path.exists(output_path):
 img_array = []
 k = 10
 
-for filename in os.listdir(folder_path)[:k]:
+for filename in os.listdir(img_path)[:k]:
     # Check if the file is a DICOM file (assuming .dcm extension)
     if filename.endswith('.dcm'):
-        image_path = os.path.join(folder_path, filename)  # Full file path
+        image_path = os.path.join(img_path, filename)  # Full file path
         img = dicom.dcmread(image_path)  # Read the DICOM file
 
     img = transform_in_hu(img)
@@ -50,7 +54,6 @@ for filename in os.listdir(folder_path)[:k]:
     ## apply normalization, returns min-max-scaled image
     img = normalizer(img) * 255
     img = img.astype(np.uint8)  # Convert to 8-bit unsigned integer
-    print(img)
 
     # Append the processed image to the array
     img_array.append(img)
@@ -59,5 +62,7 @@ for filename in os.listdir(folder_path)[:k]:
     output_file = os.path.join(output_path, filename.replace('.dcm', '.png'))
     img_pil = Image.fromarray(img)
     img_pil.save(output_file)
+
+print(f"✅ Images were processed, converted to .png and saved in {output_path}")
 
 final_array = np.array(img_array)
