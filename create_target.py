@@ -4,13 +4,13 @@ import os
 import numpy as np
 from PIL import Image
 import pandas as pd
-
-from tensorflow.keras.preprocessing import image_dataset_from_directory
+import random
 
 from basic_preprocessing import output_path
 
 ## Specify the path to your target CSV file
 data_path = "/home/sebastian/code/ipl1988/raw_data"
+
 # Read the target CSV file
 df = pd.read_csv(os.path.join(data_path, "stage_2_train.csv"))
 
@@ -39,12 +39,37 @@ for filename in img_list:
 
 print("Start Cross-Checking if the labels correspond correctly")
 
-# For File ID_85a3177f2 #
+# cross-check for random image file #
 
-file_to_check = "ID_85a3177f2"
-index_no = img_list.index(file_to_check + '.png')
+file_to_check = random.choice(img_list)
+index_no = img_list.index(file_to_check)
 print(f"{file_to_check} corresponds to the {index_no}th image in the directory")
 label = labels[index_no]
 print(f"For {file_to_check} the label was assigned: {label}")
-print(df[df['base_ID'] == file_to_check])
+print(df[df['base_ID'] == file_to_check.split(".")[0]])
 print(f"We should now see a {label} at the ID_any")
+
+
+# alternative:
+# look up all files in the directory img_list in the dictioniary grouped_data
+# cut the .png ending of the file which will be they key to search for
+# extract the value at index [-1] (= any) and save it in a list
+# assert(labels == this_list)
+
+actual_values = []
+
+# Process each file in img_list
+for file_name in img_list:
+    # Remove the .png extension (or any other extension)
+    key = os.path.splitext(file_name)[0]
+
+    # Look up the key in the dictionary and get the last value from the list
+    if key in grouped_data:
+        value = grouped_data[key][-1]
+        actual_values.append(value)
+
+# Assert that labels match this_list
+if labels == actual_values:
+    print("The labels match this_list!")
+else:
+    raise AssertionError("The labels do not match this_list!")

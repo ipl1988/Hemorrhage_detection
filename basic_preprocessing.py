@@ -28,10 +28,8 @@ def normalizer(img):
 
 img_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train"
 
-def make_output_path(img_path):
-    return os.path.join(img_path, "images_stage_2_train_png")
-
-output_path = make_output_path(img_path)
+## For later modelling, we will need a directory 2 levels down
+output_path = os.path.join(img_path, "stage_2_train_png", "images")
 
 # Ensure the output directory exists
 if not os.path.exists(output_path):
@@ -40,7 +38,9 @@ if not os.path.exists(output_path):
 # Loop through each file in the directory, test the first 100 only!
 
 img_array = []
-k = 100
+
+# How many images do you want to process
+k = 10
 
 for filename in os.listdir(img_path)[:k]:
     # Check if the file is a DICOM file (assuming .dcm extension)
