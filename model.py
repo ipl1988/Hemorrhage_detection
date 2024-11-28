@@ -1,12 +1,15 @@
 import os
+import pickle
 
 # from create_target import labels
 # from basic_preprocessing import output_path
 
 from tensorflow.keras.preprocessing import image_dataset_from_directory
-from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
-from tensorflow.keras.models import Model
+from tensorflow.keras import models
 from tensorflow.keras import layers, Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+from tensorflow.keras.callbacks import EarlyStopping
+
 
 import numpy as np
 
@@ -18,20 +21,21 @@ import numpy as np
 labels = [0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 img_dir_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train/images_stage_2_train_png"
 
-dataset = image_dataset_from_directory(
+train_dataset, validation_dataset = image_dataset_from_directory(
     directory = img_dir_path,
     labels=labels,
     label_mode='int',
     class_names=None,
     color_mode='grayscale',
-    batch_size=32,
+    batch_size=16,
     image_size=(150,150),
     shuffle=True,
-    seed=None,
-    validation_split=None,
+    seed=123,
+    validation_split=0.2,
+    subset = 'both'
 )
 
-for images, labels in dataset.take(1):  # take(1) gives you just the first batch
+for images, labels in train_dataset.take(1):  # take(1) gives you just the first batch
     print(images.shape)  # The shape of the images (e.g., (batch_size, 256, 256, 1))
     print(labels.shape)  # The shape of the labels (e.g., (batch_size, 1) for binary)
     print(labels)        # The actual labels for this batch
@@ -57,4 +61,12 @@ model.compile(loss='binary_crossentropy',
                 optimizer='adam',
                 metrics=['accuracy'])
 
-model.fit(dataset)
+EarlyStopper = EarlyStopping(monitor='val_loss',
+                                      patience=10,
+                                      verbose=0,
+                                      restore_best_weights=True)
+
+model.fit(train_dataset, validation_data= validation_dataset, epochs=30, callbacks=EarlyStopper)
+
+
+model.save('model')
