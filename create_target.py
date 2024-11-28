@@ -8,14 +8,12 @@ import random
 
 ## Specify these paths first!!! ##
 
-
 # Training
-# output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train_proc/images"
-# csv_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train.csv"
+output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train_proc/images"
+csv_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train.csv"
 
 # Testing
-csv_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train.csv"
-output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_test_proc/images"
+# output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_test_proc/images"
 
 # Read target CSV file
 
@@ -37,7 +35,6 @@ df['base_ID'] = df['ID'].str.extract(r'^(ID_[^_]+)')
 grouped_data = df.groupby('base_ID')['Label'].apply(list).to_dict()
 
 img_list = os.listdir(output_path)
-
 labels=[]
 
 for filename in img_list:

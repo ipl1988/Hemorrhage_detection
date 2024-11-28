@@ -9,13 +9,13 @@ import random
 # Define the img path!!! -> img path = folder containing your DICOM files
 
 # Training
-# img_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train"
-# output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train_proc/images"
+img_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train"
+output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train_proc/images"
 
 
 # Testing
-img_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_test"
-output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_test_proc/images"
+# img_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_test"
+# output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_test_proc/images"
 
 # Ensure the output directory exists
 if not os.path.exists(output_path):

@@ -65,7 +65,7 @@ EarlyStopper = EarlyStopping(monitor='val_loss',
                                       verbose=0,
                                       restore_best_weights=True)
 
-model.fit(train_dataset, validation_data= validation_dataset, epochs=10, callbacks=EarlyStopper)
+model.fit(train_dataset, validation_data= validation_dataset, epochs=20, callbacks=EarlyStopper)
 
 
-model.save('model_V1_10')
+model.save('model_V1_test')
