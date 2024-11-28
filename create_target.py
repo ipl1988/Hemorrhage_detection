@@ -8,8 +8,14 @@ import random
 
 ## Specify these paths first!!! ##
 
-output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train_proc/images"
+
+# Training
+# output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train_proc/images"
+# csv_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train.csv"
+
+# Testing
 csv_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train.csv"
+output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_test_proc/images"
 
 # Read target CSV file
 
