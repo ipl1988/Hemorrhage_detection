@@ -1,8 +1,7 @@
 import os
 import pickle
 
-# from create_target import labels
-# from basic_preprocessing import output_path
+from create_target import labels, output_path
 
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 from tensorflow.keras import models
@@ -16,10 +15,10 @@ import numpy as np
 
 ### Move all files in output_path to an extra directory, otherwise tf can't read them
 # delete 28th 11
-# img_dir_path = output_path[:-7]
 
-labels = [0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-img_dir_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train/images_stage_2_train_png"
+img_dir_path = output_path[:-7]
+
+#labels = [0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 train_dataset, validation_dataset = image_dataset_from_directory(
     directory = img_dir_path,
@@ -27,7 +26,7 @@ train_dataset, validation_dataset = image_dataset_from_directory(
     label_mode='int',
     class_names=None,
     color_mode='grayscale',
-    batch_size=16,
+    batch_size=32,
     image_size=(150,150),
     shuffle=True,
     seed=123,
@@ -62,11 +61,11 @@ model.compile(loss='binary_crossentropy',
                 metrics=['accuracy'])
 
 EarlyStopper = EarlyStopping(monitor='val_loss',
-                                      patience=10,
+                                      patience=5,
                                       verbose=0,
                                       restore_best_weights=True)
 
-model.fit(train_dataset, validation_data= validation_dataset, epochs=30, callbacks=EarlyStopper)
+model.fit(train_dataset, validation_data= validation_dataset, epochs=10, callbacks=EarlyStopper)
 
 
-model.save('model')
+model.save('model_V1_10')

@@ -8,12 +8,19 @@ import pandas as pd
 ## 1) Convert raw Pixels to Hounsefield Units ##
 
 def transform_in_hu(img):
-    slope = img.RescaleSlope
-    intercept = img.RescaleIntercept
-    img = img.pixel_array * slope + intercept
-    return img
+    #Check if RescaleSlope and RescaleIntercept exist in the DICOM metadata
+    if hasattr(img, 'RescaleSlope') and hasattr(img, 'RescaleIntercept'):
+        slope = img.RescaleSlope
+        intercept = img.RescaleIntercept
+    else:
+        slope = 1  # Default value if not present
+        intercept = 0  # Default value if not present
 
-## 3) Min-Max-Scaling to normalize ##
+    pixel_array = img.pixel_array
+    img_hu = pixel_array * slope + intercept
+    return img_hu
+
+## 2) Min-Max-Scaling to normalize ##
 
 def normalizer(img):
     minimum = np.min(img)
@@ -21,15 +28,14 @@ def normalizer(img):
     img = (img - minimum ) / (maximum - minimum)
     return img
 
-## 4) Process the pictures ##
+## Finally, Process the pictures ##
 
-# Define the input path!!!
-# Input path = folder containing your DICOM files
+# Define the img path!!! -> img path = folder containing your DICOM files
 
 img_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train"
 
 ## For later modelling, we will need a directory 2 levels down
-output_path = os.path.join(img_path, "stage_2_train_png", "images")
+output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train_proc/images"
 
 # Ensure the output directory exists
 if not os.path.exists(output_path):
@@ -40,7 +46,7 @@ if not os.path.exists(output_path):
 img_array = []
 
 # How many images do you want to process
-k = 10
+k = 3992
 
 for filename in os.listdir(img_path)[:k]:
     # Check if the file is a DICOM file (assuming .dcm extension)
@@ -48,20 +54,26 @@ for filename in os.listdir(img_path)[:k]:
         image_path = os.path.join(img_path, filename)  # Full file path
         img = dicom.dcmread(image_path)  # Read the DICOM file
 
-    img = transform_in_hu(img)
+    img_hu = transform_in_hu(img)
 
     ## apply normalization, returns min-max-scaled image
-    img = normalizer(img) * 255
-    img = img.astype(np.uint8)  # Convert to 8-bit unsigned integer
+    img_norm = normalizer(img_hu) * 255
+    img_norm = img_norm.astype(np.uint8)  # Convert to 8-bit unsigned integer
 
     # Append the processed image to the array
     img_array.append(img)
 
     # Save as PNG
     output_file = os.path.join(output_path, filename.replace('.dcm', '.png'))
-    img_pil = Image.fromarray(img)
+
+    # Ensure the file ends with .png
+    if not output_file.endswith('.png'):
+        output_file += '.png'  # Add .png if it's missing
+
+    img_pil = Image.fromarray(img_norm)
     img_pil.save(output_file)
 
 print(f"✅ Images were processed, converted to .png and saved in {output_path}")
 
+# Convert the list of images to a numpy array
 final_array = np.array(img_array)

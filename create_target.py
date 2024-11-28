@@ -6,13 +6,14 @@ from PIL import Image
 import pandas as pd
 import random
 
-from basic_preprocessing import output_path
+## Specify these paths first!!! ##
 
-## Specify the path to your target CSV file
-data_path = "/home/sebastian/code/ipl1988/raw_data"
+output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train_proc/images"
+csv_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train.csv"
 
-# Read the target CSV file
-df = pd.read_csv(os.path.join(data_path, "stage_2_train.csv"))
+# Read target CSV file
+
+df = pd.read_csv(csv_path)
 
 ##### Extract the Image ID
 

@@ -13,10 +13,10 @@ __pycache__
 *.ipynb_checkpoints
 
 ### from preprocessing ##
-model.pkl
 model/
 
 # inteliJ #
+*.pkl
 .idea
 *.gz
 *PKG-INFO
