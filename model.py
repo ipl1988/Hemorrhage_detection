@@ -1,4 +1,5 @@
 import os
+
 # from create_target import labels
 # from basic_preprocessing import output_path
 
@@ -9,10 +10,6 @@ from tensorflow.keras import layers, Sequential
 
 import numpy as np
 
-#processed_image_list = os.listdir(output_path)
-# for label, image in zip(labels, processed_image_list):
-# print(label,image)
-
 
 ### Move all files in output_path to an extra directory, otherwise tf can't read them
 # delete 28th 11
@@ -20,10 +17,6 @@ import numpy as np
 
 labels = [0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 img_dir_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train/images_stage_2_train_png"
-
-print(labels)
-print(len(labels))
-print(os.listdir(output_path))
 
 dataset = image_dataset_from_directory(
     directory = img_dir_path,
