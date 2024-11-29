@@ -49,3 +49,7 @@ uvicorn
 # tests
 httpx
 pytest-asyncio
+
+# Frontend
+streamlit
+gradio
