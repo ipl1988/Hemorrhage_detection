@@ -2,8 +2,7 @@ import os
 from dotenv import load_dotenv
 import pickle
 
-from create_target import labels
-
+from second_create_target import labels
 
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 from tensorflow.keras import models
