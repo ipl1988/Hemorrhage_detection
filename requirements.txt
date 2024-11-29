@@ -1,11 +1,12 @@
 ### specific packages Hem_detect
 pydicom
 aiofiles
+pillow
+glob
 
 ### basic packages from taxi fare
 wheel
 os
-pillow
 nbresult
 colorama
 ipdb
