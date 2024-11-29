@@ -1,26 +1,20 @@
 import pydicom as dicom
 import matplotlib.pyplot as plt
 import os
+from dotenv import load_dotenv
+
 import numpy as np
 from PIL import Image
 import pandas as pd
 import random
 
-# Define the img path!!! -> img path = folder containing your DICOM files
-
-# Training
-img_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train"
-output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train_proc/images"
-
-
-# Testing
-# img_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_test"
-# output_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_test_proc/images"
+# Load variables from the .env file
+load_dotenv()
+output_path = os.getenv("csv_path")
 
 # Ensure the output directory exists
 if not os.path.exists(output_path):
     os.makedirs(output_path)
-
 
 ## 1) Convert raw Pixels to Hounsefield Units ##
 
