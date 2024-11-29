@@ -1,20 +1,40 @@
-import pydicom as dicom
-import matplotlib.pyplot as plt
-
 import os
 from dotenv import load_dotenv
-
-import numpy as np
-from PIL import Image
 import pandas as pd
-import random
 
 # Load variables from the .env file
 load_dotenv()
+output_path = os.getenv("output_path")
 
-## Read in csv containing target labels of training data
-csv_path = os.getenv("csv_path")
-df = pd.read_csv(csv_path)
+# ## Read in csv containing target labels of training data
+
+df = pd.read_csv("../training_data_labelled.csv")
+
+dictionary = df.set_index('Key')['Value'].to_dict()
+img_list = os.listdir(output_path)
+
+labels=[]
+actual_values = []
+
+for file_name in img_list:
+    # Remove the .png extension (or any other extension)
+    key = os.path.splitext(file_name)[0]
+
+    if key in dictionary:
+        # Get the last label from the list for the current file
+        label = int(dictionary[key][-2])
+        true_value = int(df[df['Key'] == key]['Value'].iloc[0][-2])
+
+        # Append the label to both lists
+        labels.append(label)
+        actual_values.append(true_value)
+    else:
+        # Handle the case where the key is not found in the grouped data
+        print(f"Warning: {key} not found in grouped_data")
+
+
+print(labels, actual_values)
+
 
 ##### Extract the Image ID
 
@@ -22,55 +42,49 @@ df = pd.read_csv(csv_path)
 # we need to extract just the base ID. The base ID is the part before the first underscore.
 # This can be done using the str.extract() method to grab everything up to the first underscore
 
-df['base_ID'] = df['ID'].str.extract(r'^(ID_[^_]+)')
+#df['base_ID'] = df['ID'].str.extract(r'^(ID_[^_]+)')
 
 #### Group the Labels by the Base Image ID
 
 # Now, we can group the DataFrame by this base ID and collect all the corresponding Label values for each unique ID.
 # We will use groupby() and apply(list) to create a list of labels for each image:
 
-grouped_data = df.groupby('base_ID')['Label'].apply(list).to_dict()
+# grouped_data = df.groupby('base_ID')['Label'].apply(list).to_dict()
 
-img_list = os.listdir(output_path)
-labels=[]
+# img_list = os.listdir(output_path)
 
-for filename in img_list:
-    value = grouped_data[filename[:-4]]
-    labels.append(value[-1])
+# labels=[]
+# actual_values = []
+
+# for file_name in img_list:
+#     # Remove the .png extension (or any other extension)
+#     key = os.path.splitext(file_name)[0]
+
+#     if key in grouped_data:
+#         # Get the last label from the list for the current file
+#         label = grouped_data[key][-1]
+#         true_value = df[df['ID'] == key + "_any"]['Label'].iloc[0]
+
+#         # Append the label to both lists
+#         labels.append(label)
+#         actual_values.append(true_value)
+#     else:
+#         # Handle the case where the key is not found in the grouped data
+#         print(f"Warning: {key} not found in grouped_data")
 
 print("Start Cross-Checking if the labels correspond correctly")
-
-# cross-check for random image file #
-
-file_to_check = random.choice(img_list)
-index_no = img_list.index(file_to_check)
-print(f"{file_to_check} corresponds to the {index_no}th image in the directory")
-label = labels[index_no]
-print(f"For {file_to_check} the label was assigned: {label}")
-print(df[df['base_ID'] == file_to_check.split(".")[0]])
-print(f"We should now see a {label} at the ID_any")
-
-
-# alternative:
-# look up all files in the directory img_list in the dictioniary grouped_data
-# cut the .png ending of the file which will be they key to search for
-# extract the value at index [-1] (= any) and save it in a list
-# assert(labels == this_list)
-
-actual_values = []
-
-# Process each file in img_list
-for file_name in img_list:
-    # Remove the .png extension (or any other extension)
-    key = os.path.splitext(file_name)[0]
-
-    # Look up the key in the dictionary and get the last value from the list
-    if key in grouped_data:
-        value = grouped_data[key][-1]
-        actual_values.append(value)
 
 # Assert that labels match this_list
 if labels == actual_values:
     print("The labels match this_list!")
 else:
     raise AssertionError("The labels do not match this_list!")
+
+
+# Convert the 'labels' list into a DataFrame
+labels_df = pd.DataFrame(labels, columns=['Label'])
+
+# Specify the path where you want to save the CSV and save it
+output_csv_path = "../testdatalabels.csv"
+labels_df.to_csv(output_csv_path, index=False)
+print(f"Labels have been successfully exported to {output_csv_path}")

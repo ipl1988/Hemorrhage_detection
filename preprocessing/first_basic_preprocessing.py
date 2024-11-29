@@ -10,7 +10,7 @@ import random
 
 # Load variables from the .env file
 load_dotenv()
-output_path = os.getenv("csv_path")
+output_path = os.getenv("output_path")
 
 ## 1) Convert raw Pixels to Hounsefield Units ##
 
@@ -55,6 +55,7 @@ if __name__ == "__main__":
             image_path = os.path.join(img_path, filename)  # Full file path
             img = dicom.dcmread(image_path)  # Read the DICOM file
 
+            # transform image in HU
             img_hu = transform_in_hu(img)
 
             ## apply normalization, returns min-max-scaled image
