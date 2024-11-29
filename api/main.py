@@ -6,6 +6,7 @@ from io import BytesIO
 from tensorflow.keras.models import load_model
 from tensorflow.keras.utils import img_to_array
 from PIL import Image
+import os
 
 #import model
 from pydantic import BaseModel
@@ -25,7 +26,7 @@ def root():
 
 #model prediction to be returned in the API'''
 import pickle
-model_path = '/Users/ines/code/ipl1988/Hemorrhage_detection/model.pkl'
+model_path = os.path.join(os.path.dirname(__file__), '..', 'model.pkl')
 file = open(model_path, "rb")
 app.state.model = pickle.load(file)
 
