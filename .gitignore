@@ -1,5 +1,6 @@
 .env
 raw_data/
+base_cat_dog
 *.pkl
 
 # OS generated files #

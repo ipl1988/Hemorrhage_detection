@@ -10,9 +10,7 @@
 #CMD uvicorn api.main:app --host 0.0.0.0
 
 
-
-
-FROM python:3.10
+FROM python:3.10.6-slim
 
 RUN useradd -m -u 1000 user
 USER user
@@ -20,8 +18,11 @@ ENV PATH="/home/user/.local/bin:$PATH"
 
 WORKDIR /app
 
-COPY --chown=user ./requirements.txt requirements.txt
+COPY --chown=user requirements.txt requirements.txt
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-COPY --chown=user . /app
+COPY --chown=user api api
+COPY --chown=user model.pkl model.pkl
 CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "7860"]
+
+
