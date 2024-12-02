@@ -40,8 +40,6 @@ if img_path.endswith('.png'):
 
     print(f"Image shape after preprocessing: {img_array.shape}")
 
-
-
 # Get the directory of the currently executing script
 script_dir = os.path.dirname(os.path.realpath(__file__))
 
