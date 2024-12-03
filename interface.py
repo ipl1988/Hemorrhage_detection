@@ -70,7 +70,8 @@ def main():
                 if result['injury']>0.5:
                     st.success(f"Prediction Result is positive")
                 else:
-                    st.error("Failed to get a prediction from the API.")
+                    st.success(f"Prediction Result is negative")
+                    #st.error("Failed to get a prediction from the API.")
 
     st.markdown("---")
     st.markdown("### About")
