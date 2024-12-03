@@ -56,7 +56,8 @@ def main():
         # Load the image
         image = Image.open(uploaded_file)
         image.save('out.png')
-        st.image(image, caption="Uploaded Image", use_container_width=True)
+        st.image(image, caption="Uploaded Image")
+                 #use_container_width=True)
 
         # # Preprocess the image
         # image_array = preprocess_image(image)
