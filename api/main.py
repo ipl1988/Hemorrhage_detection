@@ -9,10 +9,10 @@ from PIL import Image
 import os
 
 #import model
-from pydantic import BaseModel
-
+#from pydantic import BaseModel
 #import fastapi files-import module
-import aiofiles
+#import aiofiles
+
 
 #import fastapi in order to build API
 from fastapi import FastAPI, UploadFile, File
