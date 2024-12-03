@@ -6,7 +6,7 @@
 ### specific packages Hem_detect
 pydicom
 aiofiles
-distutils
+setuptools
 
 ### basic packages from taxi fare
 wheel
