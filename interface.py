@@ -67,9 +67,8 @@ def main():
                 # Send the image to the API
                 result = send_image_to_api(image)
 
-                if result:
-                    # Display the prediction result
-                    st.success(f"Prediction Result: {result['injury']:.2f}")
+                if result['injury']>0.5:
+                    st.success(f"Prediction Result is positive")
                 else:
                     st.error("Failed to get a prediction from the API.")
 
