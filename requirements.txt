@@ -1,9 +1,12 @@
+
 ##packages included by ines to optimize MAC
 #tensorflow-metal
+
 
 ### specific packages Hem_detect
 pydicom
 aiofiles
+distutils
 
 ### basic packages from taxi fare
 wheel
