@@ -2,6 +2,8 @@
 raw_data/
 base_cat_dog/
 *.pkl
+.streamlit/secrets.toml
+
 
 # OS generated files #
 ######################
