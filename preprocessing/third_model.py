@@ -9,12 +9,30 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropou
 from tensorflow.keras.callbacks import EarlyStopping
 
 load_dotenv()
-img_dir_path = os.getenv("output_path")[:-7]
-img_list = os.listdir(img_dir_path)
+output_path = os.getenv("output_path")
+img_dir_path = output_path[:-7]
+
+# optional: check whether the right labels are assigned to the right images
+# for img,label in zip(os.listdir(os.getenv("output_path")), labels):
+    #print(img, label)
+
+## Sort labels alphanumerical so that the image loading function can treat them optimally##
+images = os.listdir(output_path)
+# Zipping images and labels together
+zipped = list(zip(images, labels))
+# Sorting the zipped list by the image names (alphanumeric order)
+sorted_zipped = sorted(zipped, key=lambda x: x[0])
+print(sorted_zipped)
+# Unzipping the sorted list back into images and labels
+sorted_images, sorted_labels = zip(*sorted_zipped)
+# Converting back to labels list
+sorted_labels = list(sorted_labels)
+print(sorted_labels, labels)
+
 
 train_dataset, validation_dataset = image_dataset_from_directory(
     directory = img_dir_path,
-    labels=labels,
+    labels=sorted_labels,
     label_mode='int',
     class_names=None,
     color_mode='grayscale',
@@ -59,7 +77,7 @@ model.compile(loss='binary_crossentropy',
                 metrics=['accuracy'])
 
 EarlyStopper = EarlyStopping(monitor='val_loss',
-                                      patience=5,
+                                      patience=10,
                                       verbose=0,
                                       restore_best_weights=True)
 

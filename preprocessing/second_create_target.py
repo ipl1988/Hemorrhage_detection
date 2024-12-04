@@ -8,8 +8,7 @@ output_path = os.getenv("output_path")
 
 # ## Read in csv containing target labels of training data
 
-df = pd.read_csv("../training_data_labelled.csv")
-
+df = pd.read_csv("../training_data_labels.csv")
 dictionary = df.set_index('Key')['Value'].to_dict()
 img_list = os.listdir(output_path)
 
@@ -31,10 +30,6 @@ for file_name in img_list:
     else:
         # Handle the case where the key is not found in the grouped data
         print(f"Warning: {key} not found in grouped_data")
-
-
-print(labels, actual_values)
-
 
 ##### Extract the Image ID
 
@@ -81,10 +76,14 @@ else:
     raise AssertionError("The labels do not match this_list!")
 
 
+
+## Optional: Export Labels ##
+
 # Convert the 'labels' list into a DataFrame
-labels_df = pd.DataFrame(labels, columns=['Label'])
+
+#labels_df = pd.DataFrame(labels, columns=['Label'])
 
 # Specify the path where you want to save the CSV and save it
-output_csv_path = "../testdatalabels.csv"
-labels_df.to_csv(output_csv_path, index=False)
-print(f"Labels have been successfully exported to {output_csv_path}")
+# output_csv_path = "../testdatalabels.csv"
+# labels_df.to_csv(output_csv_path, index=False)
+# print(f"Labels have been successfully exported to {output_csv_path}")
