@@ -173,7 +173,7 @@ def main():
                 result = send_image_to_api(image)
 
                 if result is not None:
-                    if result == 0:
+                    if result == range(0.5,1):
                         st.success('Positive: high probability to find a hemorrhage in this image.')
                     else:
                         st.success('Negative: low probability to find a hemorrhage in this image.')
