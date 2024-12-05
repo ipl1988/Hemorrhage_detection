@@ -34,13 +34,11 @@ def send_image_to_api(image_path):
     with open(image_bytes, 'rb') as file:
         images = {'file': (image_bytes, file, 'image/png')}
         response = requests.post(API_URL, files=images)
-
-
-    if response.status_code == 200:
-        return response.json()
-    else:
-        st.error(f"Error: {response.status_code}, {response.text}")
-        return None
+        if response.status_code == 200:
+            return response.json()
+        else:
+            st.error(f"Error: {response.status_code}, {response.text}")
+            return None
 
 
 
