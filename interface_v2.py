@@ -178,7 +178,7 @@ def main():
                         st.markdown('<h1 class="eheader-title">Positive: high probability to find a hemorrhage in this image.>')
                     else:
                         st.success("")
-                        st.markdown('<h1 class="eheader-title">Negative: low probability to find a hemorrhage in this image.>')
+                        st.markdown('<h1 style="color: #155724;">Negative: Low probability to find a hemorrhage in this image.</h1>', unsafe_allow_html=True')
                 else:
                     st.error("Failed to retrieve a prediction.")
         except Exception as e:
