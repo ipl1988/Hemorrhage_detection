@@ -173,11 +173,11 @@ def main():
 
                 if result>0.5:
                     # Display the prediction result
-                    st.success('<p style="font-size:20px; color:green;">Positive: high probability to find a hemorrhage in this image.</p>')
+                    st.success('Positive: high probability to find a hemorrhage in this image.')
                 elif result<0.5:
-                    st.success('<p style="font-size:20px; color:green;">Negative: high probability to find a hemorrhage in this image.</p>')
+                    st.success('Negative: high probability to find a hemorrhage in this image.')
                 else:
-                    st.error('<p style="font-size:20px; color:red;">Failed to get a prediction from the API.</p>')
+                    st.error('Failed to get a prediction from the API.')
 
     st.markdown("---",unsafe_allow_html=True)
     st.markdown("### About")
