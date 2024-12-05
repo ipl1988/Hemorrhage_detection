@@ -27,7 +27,8 @@ def send_image_to_api(image_path):
     # Send request to API
     files = {"file": (image_bytes, "image/png")}
     response = requests.post(API_URL, files=files)
-    Open the file and send it as a request
+    Open the file and send it as a request:
+        images = {'file': (image, file, 'image/png')}  
 
     #image_path = 'out.png'
     with open(image_path, 'rb') as file:
