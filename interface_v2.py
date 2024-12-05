@@ -175,7 +175,7 @@ def main():
                     st.text(result)
 
                     if result is not None:
-                        if result["injury"]>0.5 :
+                        if result==1 :
                             return st.success('Positive: high probability to find a hemorrhage in this image.')
                         else:
                             return st.success('Negative: low probability to find a hemorrhage in this image.')
