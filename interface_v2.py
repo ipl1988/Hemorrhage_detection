@@ -187,9 +187,9 @@ def main():
            # except Exception as e:
                # st.error(f"An error occurred while processing the image: {e}")
 
-        st.markdown("---")
-        st.markdown("### About")
-        st.text("This tool uses a CNN deep learning model to predict injury types from uploaded images.")
+    st.markdown("---")
+    st.markdown("### About")
+    st.text("This tool uses a CNN deep learning model to predict injury types from uploaded images.")
 
 if __name__ == "__main__":
     main()
