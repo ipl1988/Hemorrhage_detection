@@ -20,14 +20,14 @@ def send_image_to_api(image_path):
     """
     Send the preprocessed image to the FastAPI endpoint and get predictions.
     """
-    # image_bytes = io.BytesIO()
-    # image.save(image_bytes, format="PNG")  # Guardar como PNG
-    # image_bytes.seek(0)  # Ir al inicio del flujo
+    image_bytes = io.BytesIO()
+    image.save(image_bytes, format="PNG")  # Guardar como PNG
+    image_bytes.seek(0)  # Ir al inicio del flujo
 
-    # # Send request to API
-    # files = {"file": (image_bytes, "image/png")}
-    # response = requests.post(API_URL, files=files)
-    # Open the file and send it as a request
+    # Send request to API
+    files = {"file": (image_bytes, "image/png")}
+    response = requests.post(API_URL, files=files)
+    Open the file and send it as a request
 
     #image_path = 'out.png'
     with open(image_path, 'rb') as file:
