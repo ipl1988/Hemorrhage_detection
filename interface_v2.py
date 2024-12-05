@@ -104,7 +104,7 @@ def main():
     st.markdown('<div class="main-container">', unsafe_allow_html=True)
 
     # Title and subtitle
-    st.markdown('<h1 class="header-title">Hemorrhage Detection Assistant</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="eheader-title">Hemorrhage Detection Assistant</h1>', unsafe_allow_html=True)
     st.write("This AI-powered assistant helps analyze brain CT scans for signs of hemorrhage.")
 
     # Load and display sidebar image
@@ -174,7 +174,7 @@ def main():
 
                 if result is not None:
                     if result==1:
-                        st.success("Positive: high probability to find a hemorrhage in this image.")
+                        st.success('<h1 class="eheader-title">Positive: high probability to find a hemorrhage in this image.">', unsafe_allow_html=True)
                     else:
                         st.success("Negative: low probability to find a hemorrhage in this image.")
                 else:
