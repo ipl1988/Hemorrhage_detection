@@ -108,7 +108,7 @@ def main():
     st.write("This AI-powered assistant helps analyze brain CT scans for signs of hemorrhage.")
 
     # Load and display sidebar image
-    img_path = "/Users/ines/Desktop/brainstreamlit/brain.png"
+    img_path = "brain.png"
     img_base64 = img_to_base64(img_path)
     if img_base64:
         st.sidebar.markdown(
