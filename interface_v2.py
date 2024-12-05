@@ -170,8 +170,8 @@ def main():
              with st.spinner("Analyzing the image..."):
                 # Send the image to the API
                 #1result = send_image_to_api(image)
-                 with open(image_path, 'rb') as file: #2
-                    images = {'file': (image_path, file, 'image/png')}  #2
+                 with open(image, 'rb') as file: #2
+                    images = {'file': (image, file, 'image/png')}  #2
                     result = requests.post(API_URL, files=images)  #2
                     st.text(result)
 
@@ -187,9 +187,9 @@ def main():
            # except Exception as e:
                # st.error(f"An error occurred while processing the image: {e}")
 
-    st.markdown("---")
-    st.markdown("### About")
-    st.text("This tool uses a CNN deep learning model to predict injury types from uploaded images.")
+        st.markdown("---")
+        st.markdown("### About")
+        st.text("This tool uses a CNN deep learning model to predict injury types from uploaded images.")
 
 if __name__ == "__main__":
     main()
