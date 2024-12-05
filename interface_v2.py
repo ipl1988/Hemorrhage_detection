@@ -177,6 +177,7 @@ def main():
                         print(result)
                         st.success('Positive: high probability to find a hemorrhage in this image.')
                     else:
+                        print(result)
                         st.success('Negative: low probability to find a hemorrhage in this image.')
                 else:
                     st.error("Failed to retrieve a prediction.")
