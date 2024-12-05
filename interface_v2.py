@@ -167,12 +167,21 @@ def main():
 
         # Button for analysis
         if st.button("Analyze"):
-            with st.spinner("Analyzing..."):
-                # Placeholder for AI analysis result
-                st.success("Analysis complete: High probability of hemorrhage detected.")
+            with st.spinner("Analyzing the image..."):
+                # Send the image to the API
+                result = send_image_to_api(image)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+                if result>0.5:
+                    # Display the prediction result
+                    st.success("<p style="font-size:20px; color:green;">Positive: high probability to find a hemorrhage in this image.</p>")
+                elif result<0.5:
+                    st.success('<p style="font-size:20px; color:green;">Negative: high probability to find a hemorrhage in this image.</p>', unsafe_allow_html=Tru)
+                else:
+                    st.error('<p style="font-size:20px; color:red;">Failed to get a prediction from the API.</p>', unsafe_allow_html=True)
 
-# Run the app
+    st.markdown("---")
+    st.markdown("### About")
+    st.text("This tool uses a CNN deep learning model to predict injury types from uploaded images.")
+
 if __name__ == "__main__":
     main()
