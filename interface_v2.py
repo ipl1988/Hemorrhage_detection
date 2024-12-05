@@ -30,7 +30,7 @@ def send_image_to_api(image_path):
     # Open the file and send it as a request:
     #     images = {'file': (image, file, 'image/png')}  
 
-    #image_path = 'out.png'
+    image_path = 'out.png'
     with open(image_bytes, 'rb') as file:
         images = {'file': (image_bytes, file, 'image/png')}
         response = requests.post(API_URL, files=images)
@@ -168,11 +168,11 @@ def main():
             if st.button("Analyze"):
              with st.spinner("Analyzing the image..."):
                 # Send the image to the API
-                #1result = send_image_to_api(image)
-                 with open(image, 'rb') as file: #2
-                    images = {'file': (image, file, 'image/png')}  #2
-                    result = requests.post(API_URL, files=images)  #2
-                    st.text(result)
+                result = send_image_to_api(image)
+                 #with open(image, 'rb') as file: #2
+                    #images = {'file': (image, file, 'image/png')}  #2
+                    #result = requests.post(API_URL, files=images)  #2
+                    #st.text(result)
 
                     if result is not None:
                         if result==1 :
