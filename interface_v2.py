@@ -174,9 +174,9 @@ def main():
 
                 if result is not None:
                     if result==1:
-                        st.success('<h1 class="eheader-title">Positive: high probability to find a hemorrhage in this image.">', unsafe_allow_html=True)
+                        st.success('<h1 class="eheader-title">Positive: high probability to find a hemorrhage in this image.>')
                     else:
-                        st.success('<h1 class="eheader-title">Negative: low probability to find a hemorrhage in this image.">', unsafe_allow_html=True)
+                        st.success('<h1 class="eheader-title">Negative: low probability to find a hemorrhage in this image.>')
                 else:
                     st.error("Failed to retrieve a prediction.")
         except Exception as e:
