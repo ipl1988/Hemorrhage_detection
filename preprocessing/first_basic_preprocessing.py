@@ -10,7 +10,8 @@ import random
 
 # Load variables from the .env file
 load_dotenv()
-output_path = os.getenv("output_path")
+output_path = os.getenv("output_path") + "/HU_norm_own_window"
+img_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_train"
 
 ## 1) Convert raw Pixels to Hounsefield Units ##
 
@@ -26,6 +27,38 @@ def transform_in_hu(img):
     pixel_array = img.pixel_array
     img_hu = pixel_array * slope + intercept
     return img_hu
+
+def get_window_parameters(img):
+    """
+    Dynamically retrieve the Window Center and Window Width from the DICOM metadata.
+    If unavailable, fall back to default values.
+    """
+    # Retrieve windowing attributes with default fallback
+    window_center = getattr(img, 'WindowCenter', 40)  # Default to 40 (brain window)
+    window_width = getattr(img, 'WindowWidth', 80)   # Default to 80 (brain window)
+
+    # Handle MultiValue attributes (take the first value)
+    if isinstance(window_center, dicom.multival.MultiValue):
+        window_center = window_center[0]
+    if isinstance(window_width, dicom.multival.MultiValue):
+        window_width = window_width[0]
+
+    return float(window_center), float(window_width)
+
+## Apply Window ##
+
+def apply_window(img, window_center, window_width):
+
+    # If the field is a MultiValue, extract the first element
+    if isinstance(window_center, dicom.multival.MultiValue):
+        window_center = window_center[0]
+    if isinstance(window_width, dicom.multival.MultiValue):
+        window_width = window_width[0]
+
+    lower_bound = window_center - (window_width / 2)
+    upper_bound = window_center + (window_width / 2)
+    img = np.clip(img, lower_bound, upper_bound)
+    return img
 
 ## 2) Min-Max-Scaling to normalize ##
 
@@ -55,11 +88,17 @@ if __name__ == "__main__":
             image_path = os.path.join(img_path, filename)  # Full file path
             img = dicom.dcmread(image_path)  # Read the DICOM file
 
+            # Get dynamic window parameters
+            window_center, window_width = get_window_parameters(img)
+
             # transform image in HU
             img_hu = transform_in_hu(img)
 
+              ## apply unique window, returns windowed img
+            img_window = apply_window(img_hu, window_center, window_width)
+
             ## apply normalization, returns min-max-scaled image
-            img_norm = normalizer(img_hu) * 255
+            img_norm = normalizer(img_window) * 255
             img_norm = img_norm.astype(np.uint8)  # Convert to 8-bit unsigned integer
 
             # Append the processed image to the array

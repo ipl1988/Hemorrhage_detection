@@ -1,8 +1,14 @@
+
+##packages included by ines to optimize MAC
+#tensorflow-metal
+
+
 ### specific packages Hem_detect
 pydicom
 aiofiles
 pillow
 glob
+
 
 ### basic packages from taxi fare
 wheel
@@ -49,3 +55,7 @@ uvicorn
 # tests
 httpx
 pytest-asyncio
+
+# Frontend
+streamlit
+gradio

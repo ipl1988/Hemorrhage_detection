@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing import image
 import pydicom as dicom
 
 # Load the image (replace 'path_to_image' with the actual file path)
-img_path = "/home/sebastian/code/ipl1988/raw_data/stage_2_test_proc/images/ID_1b576065d.png"
+img_path = "/home/sebastian/code/ipl1988/raw_data/HU_norm_own_window/ID_9c22cd12c.png"
 
 if img_path.endswith('.dcm'):
     # If the file is a DICOM file
