@@ -174,17 +174,15 @@ def main():
 
                 if result is not None:
                     if result==1:
-                        st.success("")
-                        st.markdown('<h1 class="eheader-title">Positive: high probability to find a hemorrhage in this image.>')
+                        st.success('Positive: high probability to find a hemorrhage in this image.')
                     else:
-                        st.success("")
-                        st.markdown('<h1 style="color: #155724;">Negative: Low probability to find a hemorrhage in this image.</h1>', unsafe_allow_html=True')
+                        st.success('Negative: low probability to find a hemorrhage in this image.')
                 else:
                     st.error("Failed to retrieve a prediction.")
         except Exception as e:
             st.error(f"An error occurred while processing the image: {e}")
 
-    st.markdown("---", unsafe_allow_html=True)
+    st.markdown("---")
     st.markdown("### About")
     st.text("This tool uses a CNN deep learning model to predict injury types from uploaded images.")
 
