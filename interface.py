@@ -74,7 +74,7 @@ def main():
 
     st.markdown("---")
     st.markdown("### About")
-    st.text("This tool uses a machine learning model to predict injury types from uploaded images.")
+    st.text("This tool uses a Deep learning model to predict injury types from uploaded images.")
 
 if __name__ == "__main__":
     main()
