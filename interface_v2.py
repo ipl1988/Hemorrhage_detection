@@ -173,7 +173,7 @@ def main():
                  with open(image_path, 'rb') as file: #2
                     images = {'file': (image_path, file, 'image/png')}  #2
                     result = requests.post(API_URL, files=images)  #2
-            st.text(result)
+                    st.text(result)
 
                 if result is not None:
                     if result["injury"]>0.5 :
