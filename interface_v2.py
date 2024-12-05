@@ -169,7 +169,10 @@ def main():
             if st.button("Analyze"):
              with st.spinner("Analyzing the image..."):
                 # Send the image to the API
-                result = send_image_to_api(image)
+                #1result = send_image_to_api(image)
+                 with open(image_path, 'rb') as file: #2
+                    images = {'file': (image_path, file, 'image/png')}  #2
+                    result = requests.post(API_URL, files=images)  #2
                 st.text(result)
 
                 if result is not None:
