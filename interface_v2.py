@@ -15,7 +15,7 @@ def preprocess_image(image):
     """
     image = image.resize((150, 150))
     return np.array(image)
-image_path = Image.open(uploaded_file)
+
 def send_image_to_api(image_path):
     """
     Send the preprocessed image to the FastAPI endpoint and get predictions.
@@ -29,7 +29,7 @@ def send_image_to_api(image_path):
     # response = requests.post(API_URL, files=files)
     # Open the file and send it as a request
 
-
+    image_path = 'out.png'
     with open(image_path, 'rb') as file:
         images = {'file': (image_path, file, 'image/png')}
         response = requests.post(API_URL, files=images)
