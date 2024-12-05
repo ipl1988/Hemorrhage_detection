@@ -176,7 +176,7 @@ def main():
                     if result==1:
                         st.success("Positive: high probability to find a hemorrhage in this image.")
                     else:
-                        st.success("Negative: high probability to find a hemorrhage in this image.")
+                        st.success("Negative: low probability to find a hemorrhage in this image.")
                 else:
                     st.error("Failed to retrieve a prediction.")
         except Exception as e:
