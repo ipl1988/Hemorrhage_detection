@@ -173,13 +173,13 @@ def main():
 
                 if result>0.5:
                     # Display the prediction result
-                    st.success('<p style="font-size:20px; color:green;">Positive: high probability to find a hemorrhage in this image.</p>', unsafe_allow_html=True)
+                    st.success('<p style="font-size:20px; color:green;">Positive: high probability to find a hemorrhage in this image.</p>')
                 elif result<0.5:
-                    st.success('<p style="font-size:20px; color:green;">Negative: high probability to find a hemorrhage in this image.</p>', unsafe_allow_html=True)
+                    st.success('<p style="font-size:20px; color:green;">Negative: high probability to find a hemorrhage in this image.</p>')
                 else:
-                    st.error('<p style="font-size:20px; color:red;">Failed to get a prediction from the API.</p>', unsafe_allow_html=True)
+                    st.error('<p style="font-size:20px; color:red;">Failed to get a prediction from the API.</p>')
 
-    st.markdown("---")
+    st.markdown("---",unsafe_allow_html=True)
     st.markdown("### About")
     st.text("This tool uses a CNN deep learning model to predict injury types from uploaded images.")
 
