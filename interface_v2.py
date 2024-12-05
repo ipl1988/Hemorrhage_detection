@@ -171,15 +171,17 @@ def main():
                 # Send the image to the API
                 result = send_image_to_api(image)
 
-                if result>0.5:
-                    # Display the prediction result
-                    st.markdown('Positive: high probability to find a hemorrhage in this image.')
-                elif result<0.5:
-                    st.markdown('Negative: high probability to find a hemorrhage in this image.')
-                else:
-                    st.markdown('Failed to get a prediction from the API.')
+                if result is not None:
+                        if result > 0.5:
+                            st.success("Positive: high probability to find a hemorrhage in this image.")
+                        else:
+                            st.success("Negative: high probability to find a hemorrhage in this image.")
+                    else:
+                        st.error("Failed to retrieve a prediction.")
+        except Exception as e:
+            st.error(f"An error occurred while processing the image: {e}")
 
-    st.markdown("---",unsafe_allow_html=True)
+    st.markdown("---")
     st.markdown("### About")
     st.text("This tool uses a CNN deep learning model to predict injury types from uploaded images.")
 
