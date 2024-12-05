@@ -175,17 +175,17 @@ def main():
                     result = requests.post(API_URL, files=images)  #2
                     st.text(result)
 
-                if result is not None:
-                    if result["injury"]>0.5 :
-                        print(result)
-                        st.success('Positive: high probability to find a hemorrhage in this image.')
+                    if result is not None:
+                        if result["injury"]>0.5 :
+                            print(result)
+                            st.success('Positive: high probability to find a hemorrhage in this image.')
+                        else:
+                            print(result)
+                            st.success('Negative: low probability to find a hemorrhage in this image.')
                     else:
-                        print(result)
-                        st.success('Negative: low probability to find a hemorrhage in this image.')
-                else:
-                    st.error("Failed to retrieve a prediction.")
-        except Exception as e:
-            st.error(f"An error occurred while processing the image: {e}")
+                        st.error("Failed to retrieve a prediction.")
+            except Exception as e:
+                st.error(f"An error occurred while processing the image: {e}")
 
     st.markdown("---")
     st.markdown("### About")
