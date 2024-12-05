@@ -37,7 +37,7 @@ train_dataset, validation_dataset = image_dataset_from_directory(
     class_names=None,
     color_mode='grayscale',
     batch_size=32,
-    image_size=(150,150),
+    #image_size=(150,150),
     shuffle=True,
     seed=123,
     validation_split=0.2,
@@ -53,7 +53,7 @@ train_dataset, validation_dataset = image_dataset_from_directory(
 ### Model Architecture ###
 model = Sequential()
 
-model.add(layers.Input((150, 150, 1)))
+model.add(layers.Input((256, 256, 1)))
 
 model.add(layers.Conv2D(filters=32, kernel_size=(3,3), activation="relu"))
 model.add(layers.MaxPooling2D(pool_size=(2,2)))
@@ -84,4 +84,4 @@ EarlyStopper = EarlyStopping(monitor='val_loss',
 model.fit(train_dataset, validation_data= validation_dataset, epochs=20, callbacks=[EarlyStopper])
 
 
-model.save('model_V3_windowed')
+model.save('model_V3_windowed_256x256')
