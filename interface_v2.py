@@ -184,8 +184,8 @@ def main():
                             st.success('Negative: low probability to find a hemorrhage in this image.')
                     else:
                         st.error("Failed to retrieve a prediction.")
-            except Exception as e:
-                st.error(f"An error occurred while processing the image: {e}")
+           # except Exception as e:
+               # st.error(f"An error occurred while processing the image: {e}")
 
     st.markdown("---")
     st.markdown("### About")
