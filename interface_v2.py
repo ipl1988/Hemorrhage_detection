@@ -168,7 +168,7 @@ def main():
             if st.button("Analyze"):
              with st.spinner("Analyzing the image..."):
                 # Send the image to the API
-                result = send_image_to_api(image)
+                    result = send_image_to_api(image)
                  #with open(image, 'rb') as file: #2
                     #images = {'file': (image, file, 'image/png')}  #2
                     #result = requests.post(API_URL, files=images)  #2
