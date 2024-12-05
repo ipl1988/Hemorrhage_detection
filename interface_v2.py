@@ -161,23 +161,24 @@ def main():
     uploaded_file = st.file_uploader("Upload a Brain CT Image", type=['jpg', 'png', 'jpeg'])
 
     if uploaded_file is not None:
+        try:
         # Display uploaded image
-        image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Brain CT Image")
+            image = Image.open(uploaded_file)
+            st.image(image, caption="Uploaded Brain CT Image")
 
         # Button for analysis
-        if st.button("Analyze"):
-            with st.spinner("Analyzing the image..."):
+            if st.button("Analyze"):
+             with st.spinner("Analyzing the image..."):
                 # Send the image to the API
                 result = send_image_to_api(image)
 
                 if result is not None:
-                        if result > 0.5:
-                            st.success("Positive: high probability to find a hemorrhage in this image.")
-                        else:
-                            st.success("Negative: high probability to find a hemorrhage in this image.")
+                    if result > 0.5:
+                        st.success("Positive: high probability to find a hemorrhage in this image.")
                     else:
-                        st.error("Failed to retrieve a prediction.")
+                        st.success("Negative: high probability to find a hemorrhage in this image.")
+                else:
+                    st.error("Failed to retrieve a prediction.")
         except Exception as e:
             st.error(f"An error occurred while processing the image: {e}")
 
