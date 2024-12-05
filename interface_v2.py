@@ -173,7 +173,7 @@ def main():
 
                 if result>0.5:
                     # Display the prediction result
-                    st.success("<p style="font-size:20px; color:green;">Positive: high probability to find a hemorrhage in this image.</p>", unsafe_allow_html=True)
+                    st.success('<p style="font-size:20px; color:green;">Positive: high probability to find a hemorrhage in this image.</p>', unsafe_allow_html=True)
                 elif result<0.5:
                     st.success('<p style="font-size:20px; color:green;">Negative: high probability to find a hemorrhage in this image.</p>', unsafe_allow_html=True)
                 else:
