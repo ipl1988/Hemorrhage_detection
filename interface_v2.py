@@ -171,7 +171,7 @@ def main():
              with st.spinner("Analyzing the image..."):
                 # Send the image to the API
                 result = send_image_to_api(image)
-                print(result)
+                st.text(result)
 
                 if result is not None:
                     if result["injury"]>0.5 :
