@@ -68,7 +68,7 @@ def main():
 
                 if result:
                     # Display the prediction result
-                    st.success(f"Prediction Result: {result['injury']:.2f}")
+                    st.success(f"Prediction: {result:.2f}")
                 else:
                     st.error("Failed to get a prediction from the API.")
 
