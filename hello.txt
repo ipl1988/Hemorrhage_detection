@@ -1,1 +1,0 @@
-{"detail":[{"type":"value_error","loc":["body","file"],"msg":"Value error, Expected UploadFile, received: <class 'str'>","input":"ID_20ddf6bb5.png","ctx":{"error":{}},"url":"https://errors.pydantic.dev/2.10/v/value_error"}]}
